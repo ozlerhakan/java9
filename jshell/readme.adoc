@@ -170,10 +170,9 @@ jshell> System.out.print(sum($10,$11))
 ----
 1. İfade olarak tek bir değer girişi yaparsak, JShell *yönetimli* özel değişken ismi oluşturulur ve bu değişken ismi üzerinden oturum süresince tekrar tekrar değer kullanılabilir.
 
----
-Tanımladığımız kod parçalarını düzenleyemek::
+### {counter:index}. Tanımladığımız ifadeleri düzenleme
 
-Tek satırdan oluşan tanımlamaların tekrar düzenlenmesi komut satırı üzerinde problem olmamakta fakat birden fazla satırdan oluşan tanımlamalarda bu yeterli olmamakta. Bunun için `/edit` komutunu sunulmaktadır. `/edit` komutunu kullanarak direkt bir kod yapısını düzenleyebiliyoruz. Bunun için bir snippet id numarası ya da ona referans gosterilen isimlendirme üzerinden ilgili parçayı belirtmemiz gerekiyor. Ayrıca son kayıt altına alınan tanımı da parametre girmeden `/edit` komutuyla güncelleyebiliyoruz. Eğer kendimiz farklı bir editor daha öncesinden belirlemediysek varsayılan olarak belirlenen editor üzerinden düzenleme imkanımız oluyor. JShell konfigürasyonunu nasıl değiştirebileceğimizi de sonraki bölümlerde ele alacağız. Önceki oluşturduğumuz `sum` metodunu gelin düzenleyelim.
+Tek satırdan oluşan tanımlamaların tekrar düzenlenmesi komut satırı üzerinde problem olmamakta fakat birden fazla satırdan oluşan tanımlamaları tek satırda düzenlemek işkenceye dönebilir. JShell içerisinde gelen bir diğer komut sayesinde bir veya birden fazla satırdan oluşan ifadeleri düzenleyebiliyoruz. `/edit` komutu bu amaç için kullanılmaktadır. Bunun için bir snippet id numarası ya da ona referans gosterilen isimlendirme üzerinden ilgili parçayı belirtmemiz gerekiyor. Ayrıca son kayıt altına alınan tanımı da parametre girmeden `/edit` komutuyla güncelleyebiliyoruz. Eğer kendimiz farklı bir editor daha öncesinden belirlemediysek varsayılan olarak belirlenen editor üzerinden düzenleme imkanımız oluyor. JShell konfigürasyonunu nasıl değiştirebileceğimizi de alt bölümlerde ele alacağız. Gelin oluşturduğumuz `sum` metodunu düzenleyelim.
 
 ----
 jshell> /edit sum <1>
