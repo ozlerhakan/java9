@@ -1,0 +1,228 @@
+# JShell aka Java 9 REPL
+Hakan Özler
+:experimental:
+:toc: macro
+:toc-title: İçerik
+
+image::images/he-man.png[]
+
+JShell namıdiğer Java 9 REPL, Java 9 güncellemesiyle birlikte Java Platformuna katkı sağlayacak en önemli gelişmelerdendir. Java 9 ile birlikte eğitimsellik alanında önemli bir adım olarak görülmektedir. Java programlama dilini ve API özelliklerini kolayca keşfetmek, araştırmak ve deneyimlemek adına güçlü bir ortam sağlamaktadır. Geleneksek yöntemlerle Java kodlarını denemek için oluşturulan küçük projeler yerine JShell üzerinden Java kodlarını JShell'in sağladığı komut yordamlarıyla testini sağlayabiliyoruz. Etkileşimli olarak JShell oturumlarında girilen komutlar direkt JShell tarafından okunur (read), değerlendirilir (eval), değerlendirmeden ve analizden geçen kod ifadelerinin sonucu görüntülenir (print) ve tekrar bu prosedürlerin gerçekleşmesini sağlar (loop). Her defasında yapılan düzenleme, derleme ve çalıştırma işelemleri JShell ile birlikte yerini read-eval-print-loop döngüsüne bırakmıştır.
+
+JShell kullanımıyla Java deneyimini arttırabileceğimiz gibi, daha hızlı öğrenmek ve yazılım geliştirmek aşamlarında hız kazanmak için de önemli bir ortam olarak görmekteyim. Java programlama dilinde bir proje oluşturup yazılan "Hello World!":
+
+[source,java]
+----
+public class Hello {
+    public static void main(String[] args) {
+      System.out.println("Hello World");
+    }
+}
+----
+
+JShell ortamında yerini:
+
+----
+$ jshell
+jshell> System.out.println("Hello World")
+Hello World
+
+----
+
+ile almaktadır. Tek satırdan oluşan ifadelerin sonuna noktalı virgül `;` koyulmasına gerek görülmemektedir. 
+
+JShell üzerinde metod oluşturumları sınıf içerisinde yapılmasına gerek yoktur. Değişken tanımlamaları ve ifade oluşturumları metodlar içerisinde olması zorunluluğu olmamaktadır. Yukarıda da gördüğünüz gibi kod parçalarını çalıştırmak için statik `main` metod istenmemektedir. Bu aşamaları geride bırakarak kodlama işlemlerini hızlandırıp sadece istediğimiz konuya odaklanmamız sağlanır. Bu özelliklerinin dışında JShell kapsamlı bir yazılım geliştirme ordamı değildir. Amacı, önceki söylediklerime ek olarak, bir shell'in sağladığı özellikleri bünyesinde barındırarak Java API özelliklerine doğrudan erişerek özellikleri hızlıca deneme, karşılaşılan Java hatalarını test etme ve algoritmalar geliştirme ortamıdır.    
+
+toc::[]
+
+#### {counter:index}. JShell komutlarının kullanımı
+
+Farklı komut yordamlarını kullanarak kategörilere göre ifadeleri listeyebiliyoruz. Örneğin, import tanımlamaları için `/imports`, tip tanımlamaları için `/types`, değişken tanımalalarını görmek için `/vars` ve metod tanımlamaları için `/methods` yordamlarını ayrıca kullanabiliriz. Bu ve diğer komutların ön eklerini kullanarak da yordamları tetikleyebiliyoruz. Örneğin, `/imports`, `/import`, `/impor` ,`/impo`, `/imp`, `/im` ve `/i` aynı talebi istememizi sağlıyor. Girilen komutlar sistemde tek olduğundan aynı istek tüm varyasyonlarında döndürülüyor. Eğer sistemde aynı ön ek ile başlayan başka komutlar varsa, aşağıdaki gibi bir belirsizlik ile karşılaşabiliyoruz:
+
+----
+$ jshell  <1>
+|  Welcome to JShell -- Version 9
+|  For an introduction type: /help intro
+
+jshell> /r
+|  Command: '/r' is ambiguous: /reset, /reload
+|  Type /help for help.
+----  
+1. Java 9 kurulumu için ana sayfadaki kurum başlığına bakabilirsiniz.
+
+Komutlar hakkında daha detaylı bilgi almak için `/help` ön komutuyla birlikte bilgi almak istenen komutun ismi belirtilmelidir.
+
+----
+jshell> /help list
+|
+|  /list
+|
+|  Show the source of snippets, prefaced with the snippet id.
+|
+|  /list
+|   List the currently active snippets of code that you typed or read with /open
+|
+|  /list -start
+|   List the automatically evaluated start-up snippets
+|
+|  /list -all
+|   List all snippets including failed, overwritten, dropped, and start-up
+|
+|  /list <name>
+|   List snippets with the specified name (preference for active snippets)
+|
+|  /list <id>
+|   List the snippet with the specified snippet id
+
+jshell> /help imports
+|
+|  /imports
+|
+|  List the current active jshell imports.
+---- 
+
+### {counter:index}. Snippet ID
+
+JShell oturumunda kayit altına alınan snippet özelliği taşıyan tüm ifadelerin (sınıf tanımla, matematik operasyonlar, import adımları vb) özel snippet numaraları olmaktadır. Bu numaralar üzerinden istenen ifadelere ulaşım sağlanabilir ve çalıştırılabilirler.
+
+### {counter:index}. JShell session boyunca oluşturulan snippet kayıtlarını görmek
+
+JShell oturumun boyunca erişilebilir tüm snippet adımlarına `/list` komutunu kullanarak ulaşabiliyoruz. Listede gözükenlerin kaçıncı adımda oluşturulduğu ya da güncellendiğini gösteren endeks numaralarıyla (snippet id) birlikte tutulmaktadır. Kullanılabilir tanımlı parçanın takibi çıkan liste içerisinde yapılabiliyor. Oturum süresince eğer aynı tanımlama birden fazla uygulanırsa, son yapılan tanımlama snippet numarasıyla listede gösteriliyor. Bu yaklaşım `/list` komutunun varsayılan yaklaşımıdır. Ekstra seçeneklerden `-all` `/list` ile birlikte uygulanırsa, oturum süresince düşürülmüş ve gizlenmiş diğer tüm parçalar da gösteriliyor. Başlangıçta dikkate alınan import adımları da dahil olmaktadır. Yapılan her matematiksel ifadeler (bu ifadeler aynı da olsalar) her zaman farklı id numaralarına sahip olmaktadırlar. Java üye (sınıf, arayüz, method, değişken vb) tanımlamalarında ise sadece en aktif erişilebilir tanımlamalar `/list` üzerinden gösterilmektedir.
+
+### {counter:index}. JShell üzerinde yapılan tüm geçmişi listeme
+
+JShell üzerinde oturumumuz açılmasıyla birlikte çalıştırdığımız komutları ve tanımlanan/işlenen kod parçalarının listesini `/list -history` komutunu çalıştırarak görebiliyoruz. Farklı liste komutlarıyla çıktılanan adımları dışa aktararak kalıcılaştırabiliyoruz. Dışa aktarılan kod parçalarını da JShell oturumlarında tekrar  kullabilmek adına içeri aktarabiliyoruz. 
+
+### {counter:index}. JShell içerisinde spesific bir kod parçasını arayabilmek
+
+`/list <id>` kalıbını kullanarak oturum boyunca yapılan bir kaydın detayına ulaşabiliyoruz. Örneğin; `/list 4` sorgusuyla numarası 4 olan snippet detayını bize döndürür. Oturumda bulunmayan geçersiz bir değer girildiğinde bize hata döndürülür.
+
+### {counter:index}. Önceden yapılmış bir snippet ifadesini tekrar çalıştırmak
+
+Bir önceki başlıkta istediğimiz bir ifadeye nasıl ulaşabildiğimizi öğrenmiştik. Bu ifadeyi bulmak için snippet numarasını belirterek ulaşabiliyorduk. Bu ifadenin içeriğine bakıp tekrar çalıştırma kararı alırsak eğer tek yapmamız gereken adım komut satırına bu ifadenin numarasını belirtip çalıştırmak olacaktır. Örneğin 4. snippeti tekrar çalıştırmak istersek, `/4` girerek çalıştırmalıyız. Bu yaklaşımı uygulamamız sonucunda `/list` akışında bir değişiklik gözlemlenmez. 
+
+### {counter:index}. Hata yaptığımız parçaların kayıt listesi
+
+Hata yapılan ifadeler başında "e" ön eki olan ve oturumda toplam hata sayısının bir fazlası gelecek şekilde değer eklenerek arka planda bir değişkene ayarlanıyor. Örneğin; değişkeni tanımlamadan bir sayıya eşitlediğimizde bunu, `degree = 50`, degree degiskenin tip değerinin bulunamadığı belirtilir ve bu eğer bizim oturumumuzda ilk hatamız olacak ise "e1" biçiminde bir değişkene atanır. Bu kaydı `/list -all` komutu üzerinden görebilirsiniz. 
+
+### {counter:index}. Kullanıcı ve JShell yönetimli değişken oluşturma ve kullanımı
+
+Dolaylı yolla ya da doğrudan oluşturulan değişkenlerin bazılarını başka değişkenler ile kullabiliyoruz. Örneğin, bu değişken bir Java değişkeni veya aritmatik ifade olabilir. Aşağıdaki örneklememizde, `world` isminde `String` değer taşıyan bir Java değişkeni ile farklı değişkenler oluşturabildiğimiz gibi aritmetik ifadenin değişkeni üzerinden farklı değişken kullanımlarını düzenleyebiliyoruz.   
+
+----
+jshell> String world = "world"  <1>
+world ==> "world"
+
+jshell> "hello" + world     <2>
+$2 ==> "helloworld"
+
+jshell>  world + $2         <3>
+$3 ==> "worldhelloworld"
+
+jshell>  world + "." 
+$4 ==> "world."
+
+jshell> String.join(" ", "hello", $4) <4>
+$5 ==> "hello world."
+
+jshell> $5 + $2
+$6 ==> "hello world.helloworld"
+
+jshell> 4 + 1      <5>
+$7 ==> 5
+
+jshell> 6 + $7
+$2 ==> 11
+----   
+1. Kullanıcı tanımlı `String` tipinde `world` değişkeni oluşturuyoruz.
+2. Başka bir `String` ifadeyi `world` değişkeniyle birleştirelim. Bu birleştirme ile JShell yönetimli değişken oluşturulması gerçekleşecek. İstenen değere ulaşmak için JShell `$2` üzerinden erişilebileceğini söylemektedir.
+3. Kullanıcı tanımlı ve JShell tanımlı değişkenleri birleştiriyoruz.
+4. Java 8 ile gelen `join` statik metodu kullanarak bu sefer birden fazla değeri birleştirme işlemi yapalım. Bu tanımlamalar için hep JShell yönetimli değişkenler oluşturulduğunu göreceksiniz.
+5. Son olarak matematik işleminin de sonucunu ayrı bir değişken oluşturulup atandığını görmekteyiz.
+
+### {counter:index}. JShell oturumunu yeniden başlatmak
+
+Oturumu boyunca kayıt altına alınan tüm kod parçalarını sıfırlayarak yeni ve temiz bir oturum elde edebiliyoruz. `/reset` komutunu kullanılarak tüm snippet kayıtları silinir, başlangıçta rol oynayan adımlar tekrardan çalıştırılır ve JShell dışına çıkmadan ilk giriş sağladığımız duruma tekrar ulaşırız.  
+
+----
+jshell> /reset
+----
+
+### {counter:index}. JShell oturumunda birden fazla satır kullanalabilme
+
+Eğer ifade tanımlamanızda parantez ya da süslü parantez kullanımı varsa ve aynı satırda açılıyor ama kapanmıyorsa, bir sonraki satıra geçildiğinde 3 nokta (...) ile ifadenin devamında yazılacaklar beklenecektir. Aşağıdaki örneğimizde `sum` isminde 2 parametreden oluşacak bir metod yazalım. Metodun parametrelerini ve aynı zamanda metod gövdesini  okunabilirlik açısından ayrı satırlarda girerek toplam 5 satırda metodu tanımlamış oluyoruz. 
+
+----
+jshell> int sum(
+   ...> int firstNumber,
+   ...> int secondNumber) {
+   ...> return firstNumber + secondNumber;
+   ...> }
+|  created method sum(int,int)
+
+jshell> 12  <1>
+$10 ==> 12
+
+jshell> 4
+$11 ==> 4
+
+jshell> System.out.print(sum($10,$11))
+16
+----
+1. İfade olarak tek bir değer girişi yaparsak, JShell *yönetimli* özel değişken ismi oluşturulur ve bu değişken ismi üzerinden oturum süresince tekrar tekrar değer kullanılabilir.
+
+---
+Tanımladığımız kod parçalarını düzenleyemek::
+
+Tek satırdan oluşan tanımlamaların tekrar düzenlenmesi komut satırı üzerinde problem olmamakta fakat birden fazla satırdan oluşan tanımlamalarda bu yeterli olmamakta. Bunun için `/edit` komutunu sunulmaktadır. `/edit` komutunu kullanarak direkt bir kod yapısını düzenleyebiliyoruz. Bunun için bir snippet id numarası ya da ona referans gosterilen isimlendirme üzerinden ilgili parçayı belirtmemiz gerekiyor. Ayrıca son kayıt altına alınan tanımı da parametre girmeden `/edit` komutuyla güncelleyebiliyoruz. Eğer kendimiz farklı bir editor daha öncesinden belirlemediysek varsayılan olarak belirlenen editor üzerinden düzenleme imkanımız oluyor. JShell konfigürasyonunu nasıl değiştirebileceğimizi de sonraki bölümlerde ele alacağız. Önceki oluşturduğumuz `sum` metodunu gelin düzenleyelim.
+
+----
+jshell> /edit sum <1>
+---- 
+1. isteği ilettiğimizde karşımıza metod tanımını gösteren aşağıdaki editor açılacak.
+
+Editörde `sum` metodunun gövdesini biraz değiştirip ayrıca yeni bir metod eklemek isteyelim. Bu metodumuz da gene 2 parametreden oluşsun ve bize bu değerler ışığından maksimum olan sayıyı döndürsün. Aşağıdaki resim ile editörde yapmak istediklerimizi somut olarak görmekteyiz.
+
+image::images/editor.png[]
+
+Resimde dikkatinizi çekecek olan 3 buton bulunuyor. `Cancel` seçeneğini seçersek editördeki düzenlemelerimiz kalıcılaşmadan kaybolur.  `Accept` seçeneğini seçerek editördeki tanımlamaların analizi yapılıp istenenlerin çalıştırılması sağlanır. `Exit` seçeneği `Accept` ile aynı özelliği taşımaktadır, tek farklı, mevcut editörün kullanımı sonlanır. 
+
+image::images/sumAndMax.png[]
+
+Editörde güncellediğimiz `sum` metodu ve yeni oluşturduğumuz `max` metodunu onaylayalım ("Accept"). JShell konsolunda bir değişiklik olacak mı gözlemleyelim. Eğer sizde bu aşamaları yaıyorsanız aşağıdaki çıktıyı aldığımızı siz de göreceksiniz. Küçük bir tavsiye adına, ister editörde ister JShell konsolu üzerinde olun, satır başı yaparak ifadeleri yazmayı ihmal etmeyin. Bu yöntemle kod parçalarını daha kolay anlayıp güncelleyebilirsiniz. Örneğimizde `max` metodunda bunu uygulamaya çalıştım.  
+
+----
+|  modified method sum(int,int)
+|  created method max(int,int)
+----
+
+Onayladığımızda `sum` metodunun güncellendiğini ve `max` metodunun oluşturulduğunu görmüş olduk.  Ayrıca çıkış yaparak son adımda değerlendirilen kodları `/list -all` ile inceleyebiliriz. Bu komut haricinde sadece tanımlı metodların imza tanımlamalarıyla listelemek için `/methods` komutunu kullanabiliyoruz.
+
+----
+jshell> /list -all
+  ...
+  ...
+  17 : int sum(
+       int firstNumber,
+       int secondNumber) {
+       int sum = firstNumber + secondNumber;
+       return sum;
+       }
+  18 : int max(int firstNumber, int secondNumber) {
+           int max = Math.max(firstNumber, secondNumber);
+           return max;
+       }
+
+jshell> /methods
+|    int sum(int,int)
+|    int max(int,int)
+
+jshell> max(2,6)
+$4 ==> 6
+----
+
+### {counter:index}. JShell oturumundan çıkma işlemi :(
+
+JShell oturumundan çıkmak için 2 farklı yol bulunmakta 
+
+1. `/exit` ya da daha kısa haliyle aynı işlemi gören `/ex` komutuyla ya da
+2. CTRL + C + D kısayolunu kullanılarak çıkış yapılabilir.

@@ -1,0 +1,70 @@
+# Java 9 
+
+Java 9 yeniliklerini derlemek üzere oluşturulmuş bir depodur.  
+
+## Konular
+
+* link:jshell/readme.adoc[JShell - Java 9 REPL]
+
+## Kurulum
+
+### Windows
+
+Windows platformuna yükleme işlemi için öncelikle http://jdk.java.net/9/[Java 9 Early-Access Builds] adresine giderek ilgili JDK'nın `exe` dosyasını sisteminize indirmeniz gerekmektedir. İndirme işleminden sonra geleneksel _next_ _next_ akışıyla Java 9 kurulumunu yapmamız gerekiyor. Java 9 daha erken ulaşılabilir sürecindedir. Sisteminizin `PATH` ortam değişkenine direkt eklemeyi tercih etmeyebilirsiniz. Bunu düşünerek, sadece açık olan command prompt üzerinde Java araçlarını (`javac`, `java`, `jshell` vb) çalıştırmak için aşağıdaki komutları çalıştırmanız yeterli olacaktır.
+
+[source,bash]
+----
+set JAVA_HOME=C:\Program Files\Java\jdk-9 <1>
+set PATH=%PATH%;%JAVA_HOME%\bin
+----    
+
+### MacOS
+
+MacOS platformuna yükleme işlemi için öncelikle http://jdk.java.net/9/[Java 9 Early-Access Builds] adresine giderek ilgili JDK'nın `dmg` dosyasını sisteminize indirmeniz gerekmektedir. İndirme işleminden sonra ekranı takip ederek Java 9 kurulumunu yapmamız gerekiyor. Java 9 şu an stabil versiyona sahip değil, sisteminizde Java 9 dışında farklı Java versiyonları olabilir ve onlarla geliştirim yapıyor olabilirsiniz. Java 9 versiyonunu geliştirim sürecine karıştırmadan sadece açık olan terminalinizde kullanmak istiyorsanız aşağıdaki adımları yapmanız yeterli olacaktır.
+
+[source,bash]
+----
+$ /usr/libexec/java_home -verbose  <1>
+Matching Java Virtual Machines (3):
+    9, x86_64:  "Java SE 9" /Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
+    1.8.0_131, x86_64:  "Java SE 8" /Library/Java/JavaVirtualMachines/jdk1.8.0_131.jdk/Contents/Home
+    1.7.0_79, x86_64:   "Java SE 7" /Library/Java/JavaVirtualMachines/jdk1.7.0_79.jdk/Contents/Home
+
+/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
+$ /usr/libexec/java_home -v 9 <2>
+/Library/Java/JavaVirtualMachines/jdk-9.jdk/Contents/Home
+$ export JAVA_HOME=$(/usr/libexec/java_home -v 9)           <3>
+$ java -version               <4>
+java version "9"
+Java(TM) SE Runtime Environment (build 9+176)
+Java HotSpot(TM) 64-Bit Server VM (build 9+176, mixed mode)
+$ export JAVA_HOME=$(/usr/libexec/java_home -v 1.8.0_131)       <5>
+$ java -version
+java version "1.8.0_131"
+Java(TM) SE Runtime Environment (build 1.8.0_131-b11)
+Java HotSpot(TM) 64-Bit Server VM (build 25.131-b11, mixed mode)
+$ export JAVA_HOME=$(/usr/libexec/java_home -v 9)       <6>
+$ jshell
+|  Welcome to JShell -- Version 9
+|  For an introduction type: /help intro
+
+jshell> <7>
+----
+1. Sisteminizde bulunan Java versiyonlarını öncelikle listeyelim. Kendi sistemimde şu an 3 Java versiyonu olduğunu görüyorum.
+2. Java 9 versiyonun bulunduğu dizin yolunu bize döndürür. Bu yolla sistemdeki Java versiyonlarının dizin yollarını direkt bulduğumuza göre `JAVA_HOME` ortam değişkenini açık olan terminalimizde tanımlayarak farklı Java versiyonlarını kullanabiliriz.
+3. Terminalde Java 9 kullanılması için çalıştırıyoruz.
+4. Java versiyonuna baktığımızda, Java 9 kullanılabilir durumda olduğunu artık görüyoruz.
+5. Eğer Java versiyonunu Java 8 131 ile değiştirmek istersek uygulayacağımız adım sadece Java versiyon ismini export komutunda değiştirmek olacak. 
+6. Tekrar Java 9 versiyonuna göre ayarlayarak terminali `jshell` denemesi yapabilirz.
+7. Voila!
+
+
+### Linux
+
+Linux dağıtımıza uygun yükleme işlemi için öncelikle http://jdk.java.net/9/[Java 9 Early-Access Builds] adresine giderek ilgili JDK'nın `tar.gz` dosyasını sisteminize indirmeniz gerekmektedir. İndirme işleminden dosyaları uygun dizine çıkartmalısınız. Terminal üzerinden Java 9 versiyonunu kullanmanız için `PATH` ortam değişkenini Java 9 bin dizinini eklemeniz gerekmektedir.
+
+[source,bash]
+----
+$ export PATH="/your/java9/folder/bin:PATH"
+---- 
+
