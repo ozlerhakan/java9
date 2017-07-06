@@ -30,7 +30,7 @@ Hello World
 
 ile almaktadır. Tek satırdan oluşan ifadelerin sonuna noktalı virgül `;` koyulmasına gerek görülmemektedir. 
 
-JShell üzerinde metod oluşturumları sınıf içerisinde yapılmasına gerek yoktur. Değişken tanımlamaları ve ifade oluşturumları metodlar içerisinde olması zorunluluğu olmamaktadır. Yukarıda da gördüğünüz gibi kod parçalarını çalıştırmak için statik `main` metod istenmemektedir. Bu aşamaları geride bırakarak kodlama işlemlerini hızlandırıp sadece istediğimiz konuya odaklanmamız sağlanır. Bu özelliklerinin dışında JShell kapsamlı bir yazılım geliştirme ordamı değildir. Amacı, önceki söylediklerime ek olarak, bir shell'in sağladığı özellikleri bünyesinde barındırarak Java API özelliklerine doğrudan erişerek özellikleri hızlıca deneme, karşılaşılan Java hatalarını test etme ve algoritmalar geliştirme ortamıdır.    
+JShell üzerinde metod oluşturumları sınıf içerisinde yapılmasına gerek yoktur. Değişken tanımlamaları ve ifade oluşturumları metodlar içerisinde olması zorunluluğu olmamaktadır. Yukarıda da gördüğünüz gibi kod parçalarını çalıştırmak için statik `main` metod istenmemektedir. Bu aşamaları geride bırakarak kodlama işlemlerini hızlandırıp sadece istediğimiz konuya odaklanmamız sağlanır. Bu özelliklerinin dışında JShell kapsamlı bir yazılım geliştirme ordamı değildir. Amacı, önceki söylediklerime ek olarak, bir shell'in sağladığı yetenekleri bünyesinde barındırarak Java API özelliklerine doğrudan erişerek özellikleri hızlıca deneme, karşılaşılan Java hatalarını test etme ve algoritmalar geliştirme ortamıdır.    
 
 toc::[]
 
