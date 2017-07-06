@@ -50,18 +50,17 @@ $ jshell
 
 jshell> <7>
 ----
-1. Sisteminizde bulunan Java versiyonlarını öncelikle listeyelim. Kendi sistemimde şu an 3 Java versiyonu olduğunu görüyorum.
-2. Java 9 versiyonun bulunduğu dizin yolunu bize döndürür. Bu yolla sistemdeki Java versiyonlarının dizin yollarını direkt bulduğumuza göre `JAVA_HOME` ortam değişkenini açık olan terminalimizde tanımlayarak farklı Java versiyonlarını kullanabiliriz.
-3. Terminalde Java 9 kullanılması için çalıştırıyoruz.
+1. Sisteminizde bulunan Java versiyonlarını öncelikle listeyelim. Kendi sistemimde şu an 3 Java farklı versiyonu olduğunu görüyorum.
+2. Java 9 versiyonun bulunduğu dizin yolunu bize döndürür. Bu yolu kullanarak sistemde bulunan Java versiyonlarının dizin yollarını direkt bulduğumuza göre `JAVA_HOME` ortam değişkenini açık olan terminalimizde tanımlayarak farklı Java versiyonlarını kullanabiliriz.
+3. Terminalde Java 9 kullanılması için gerekli adımı atıyoruz.
 4. Java versiyonuna baktığımızda, Java 9 kullanılabilir durumda olduğunu artık görüyoruz.
-5. Eğer Java versiyonunu Java 8 131 ile değiştirmek istersek uygulayacağımız adım sadece Java versiyon ismini export komutunda değiştirmek olacak. 
-6. Tekrar Java 9 versiyonuna göre ayarlayarak terminali `jshell` denemesi yapabilirz.
+5. Eğer Java versiyonunu Java 8 131 güncellemesi ile değiştirmek istersek, uygulayacağımız adım sadece listedeki Java versiyon ismini `export` komutunda değiştirmek olacak. 
+6. Tekrar Java versiyonunu 9 olarak ayarlayalım ve bir `jshell` oturumu açmaya çalışalım.
 7. Voila!
-
 
 ### Linux
 
-Linux dağıtımıza uygun yükleme işlemi için öncelikle http://jdk.java.net/9/[Java 9 Early-Access Builds] adresine giderek ilgili JDK'nın `tar.gz` dosyasını sisteminize indirmeniz gerekmektedir. İndirme işleminden dosyaları uygun dizine çıkartmalısınız. Terminal üzerinden Java 9 versiyonunu kullanmanız için `PATH` ortam değişkenini Java 9 bin dizinini eklemeniz gerekmektedir.
+Linux dağıtımıza uygun yükleme işlemi için öncelikle http://jdk.java.net/9/[Java 9 Early-Access Builds] adresine giderek ilgili JDK'nın `tar.gz` dosyasını sisteminize indirmeniz gerekmektedir. İndirme işleminden sonra dosyaları uygun dizine çıkartmalısınız. Terminal üzerinden Java 9 versiyonunu kullanmanız için `PATH` ortam değişkenini Java 9 bin dizinini eklemeniz gerekmektedir.
 
 [source,bash]
 ----
