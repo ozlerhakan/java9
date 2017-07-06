@@ -147,7 +147,7 @@ Oturumu boyunca kayıt altına alınan tüm kod parçalarını sıfırlayarak ye
 jshell> /reset
 ----
 
-### {counter:index}. JShell oturumunda birden fazla satır kullanalabilme
+### {counter:index}. JShell oturumunda birden fazla satır kullanabilme
 
 Eğer ifade tanımlamanızda parantez ya da süslü parantez kullanımı varsa ve aynı satırda açılıyor ama kapanmıyorsa, bir sonraki satıra geçildiğinde 3 nokta (...) ile ifadenin devamında yazılacaklar beklenecektir. Aşağıdaki örneğimizde `sum` isminde 2 parametreden oluşacak bir metod yazalım. Metodun parametrelerini ve aynı zamanda metod gövdesini  okunabilirlik açısından ayrı satırlarda girerek toplam 5 satırda metodu tanımlamış oluyoruz. 
 
