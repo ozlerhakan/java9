@@ -8,7 +8,7 @@ image::images/he-man.png[]
 
 JShell namıdiğer Java 9 REPL, Java 9 güncellemesiyle birlikte Java Platformuna katkı sağlayacak en önemli gelişmelerdendir. Java 9 ile birlikte eğitimsellik alanında önemli bir adım olarak görülmektedir. Java programlama dilini ve API özelliklerini kolayca keşfetmek, araştırmak ve deneyimlemek adına güçlü bir ortam sağlamaktadır. Geleneksek yöntemlerle Java kodlarını denemek için oluşturulan küçük projeler yerine JShell üzerinden Java kodlarını JShell'in sağladığı komut yordamlarıyla testini sağlayabiliyoruz. Etkileşimli olarak JShell oturumlarında girilen komutlar direkt JShell tarafından okunur (read), değerlendirilir (eval), değerlendirmeden ve analizden geçen kod ifadelerinin sonucu görüntülenir (print) ve tekrar bu prosedürlerin gerçekleşmesini sağlar (loop). Her defasında yapılan düzenleme, derleme ve çalıştırma işelemleri JShell ile birlikte yerini read-eval-print-loop döngüsüne bırakmıştır.
 
-JShell kullanımıyla Java deneyimini arttırabileceğimiz gibi, daha hızlı öğrenmek ve yazılım geliştirmek aşamlarında hız kazanmak için de önemli bir ortam olarak görmekteyim. Java programlama dilinde bir proje oluşturup yazılan "Hello World!":
+JShell kullanımıyla Java deneyimini arttırabileceğimiz gibi, daha hızlı öğrenmek ve yazılım geliştirmek aşamlarında hız kazanmak için de önemli bir ortam olarak görmekteyim. Java programlama dilinde bir proje oluşturup yazılan "Hello World":
 
 [source,java]
 ----
@@ -131,7 +131,7 @@ jshell> 4 + 1      <5>
 $7 ==> 5
 
 jshell> 6 + $7
-$2 ==> 11
+$8 ==> 11
 ----   
 1. Kullanıcı tanımlı `String` tipinde `world` değişkeni oluşturuyoruz.
 2. Başka bir `String` ifadeyi `world` değişkeniyle birleştirelim. Bu birleştirme ile JShell yönetimli değişken oluşturulması gerçekleşecek. İstenen değere ulaşmak için JShell `$2` üzerinden erişilebileceğini söylemektedir.
@@ -225,3 +225,394 @@ JShell oturumundan çıkmak için 2 farklı yol bulunmakta
 
 1. `/exit` ya da daha kısa haliyle aynı işlemi gören `/ex` komutuyla ya da
 2. CTRL + C + D kısayolunu kullanılarak çıkış yapılabilir.
+
+### {counter:index}. Tip yaratma ve listeleme
+
+JShell üzerinden birkaç tane tip tanımlaması yapalım ve bunların listenme işlemine bakalım. Öncelikle `Figure` isminde bir soyut sınıf oluşturuyoruz. Bu işlemi JShell üzerinden ayarlayıp sonrasında bu sınıfı editör üzerinden düzenlemek için açalım. Aslında amacım yeni oluşturduğumuz sınıfı güncellemek değil, amacım editör kolaylığını seçerek diğer somut sınıfları oluşturmaktır.
+
+----
+jshell> abstract class Figure {
+   ...> abstract double area();
+   ...> }
+|  created class Figure
+
+jshell> /edit Figure
+----
+
+image::images/typeDecleration.png[]
+
+Editörün yardımıyla 2 yeni somut sınıf tanımlamış olduk. Bu somut sınıflar soyut `Figure` sınıfını genişletiyor. Editörde girilen yapıların analizinin yapılıp değerlendirilmesini istiyoruz sonrasında editörden çıkıyoruz.
+
+.onaylama sonrasında konsola çıktılanan bildirimler.
+----
+|  created class Circle
+|  created class Rectangle
+----
+
+`/types` komutunu ya da ön eklerini uygulayarak oturumda kullanilabilen mevcut tip (sınıf, arayüz ve enum) leri listeleyebiliriz:
+
+----
+jshell> /types
+|    class Figure
+|    class Circle
+|    class Rectangle
+----
+
+Spesific bir tip tanımını da arayabiliyoruz:
+
+----
+/types Circle
+|    class Circle
+
+----
+
+### {counter:index}. Referans tipte değişkenler ve nesneler oluşturma
+
+Tıpkı primitive değişkenler oluşturabildiğimiz gibi sınıf nesneleri oluşturabiliyoruz. Önceki örneklerimizde bu yaklaşımın yapılabildiğini String tipinde bazı değişkenler yaratarak görmüştük. Bir önceki görevimizde oluşturduğumuz `Circle` ve `Rectangle` sınıflarından değişkenler oluşturup, oluşturulan değişkenlerden nesneler yaratabiliriz. Kısaca bunlarla ilgili adımları yapaım:
+
+----
+jshell> Circle circle <1>
+circle ==> null
+
+jshell> circle
+circle ==> null
+
+jshell> circle = new Circle(2)
+circle ==> Circle@490ab905 <2>
+
+jshell> new Circle(4) <3>
+$4 ==> Circle@72d818d1
+----
+1. Default null değerini alacak olan sonuna noktalı virgül koymadan oluşturduğumuz referans tip değişkenimiz
+2. `circle` değişkenimizi oluşturduktan sonra Circle sınıfından oluşturacağımız nesneyi bu değişkene referans verebiliriz. İşlem sonrasında nesnemizin string kimlik değerini görüyoruz.
+3. İstersek referans tanımlamasını JShell'e bırakarak yeni bir Circle nesne değişkeni elde edebiliriz.  
+
+Oluşturulan ilk immutable nesneyi çalıştırıp sonucumuza ulaşalım son olarak:
+
+----
+jshell> circle.area()
+$16 ==> 12.566370614359172 <1>
+----
+1. danss
+
+Unutmadan söylemek istiyorum, eğer biz `circle.area()` metodunu defalarca koşturusak, her dönen değer için JShell yönetimli bir değişken yaratılmış olur. Fakat metodu `print` komutunda çağırırsak bu dolaylı tanımlama yolu yapılmamış olur.
+
+----
+jshell> System.out.print(circle.area())
+12.566370614359172 <1>
+----
+1. Görüldüğü gibi her hangi bir özel değişkene atama yapılmadan sadece sonuç değeri çıktılanmış oldu.
+
+### {counter:index}. Kullanılabilir kod parçalarını içe ve dışa aktarma özelliği
+
+JShell oturumu boyunca kaydettiğimiz, güncellediğimiz ve çalıştırdığımız tüm adımları dışa aktararak kalıcılaştırma imkanımız bulunuyor. Daha sonrasında dışa aktarılan değerlerin hepsini farklı oturumlarda tekrar aynı adımları yapmamak adına içe aktararak aynı değerlere ulaşabilmemiz de mümkündür. JShell konsolu üzerinde hem içe hem dışa ve ayrıca Java kod parçalarını içe aktarmaya birlikte bakalım: 
+
+----
+jshell> /list <1>
+
+   1 : abstract class Figure {  <2>
+       abstract double area();
+       }
+
+jshell> /save snippets <3>
+jshell> /ex
+|  Goodbye
+$ pwd
+/Users/hakan/jshell-examples  
+$ ls                <4>
+snippets   Circle.java    Rectangle.java
+$ jshell
+|  Welcome to JShell -- Version 9
+|  For an introduction type: /help intro
+
+jshell> /open snippets  <5>
+
+jshell> /list           <6>
+
+   1 : abstract class Figure {
+       abstract double area();
+       }
+
+jshell> /open Circle.java  <7>
+
+jshell> /types             <8>
+|    class Figure
+|    class Circle
+
+jshell> /open Rectangle.java  <9>
+
+jshell> /list                 <10>
+
+   1 : abstract class Figure {
+       abstract double area();
+       }
+   2 : class Circle extends Figure {
+           final double radius;
+           Circle(double radius) {
+               this.radius = radius;
+           }
+           double area() {
+               return Math.PI * (radius * radius);
+           }
+       }
+   3 : class Rectangle extends Figure {
+           final double length;
+           final double width;
+
+           Rectangle(double length, double width) {
+               this.length = length;
+               this.width = width;
+           }
+           double area() {
+               return length * width;
+           }
+       }
+
+jshell> /types    
+|    class Figure
+|    class Circle
+|    class Rectangle
+----
+1. Öncelikle oturumumuzda hangi snippet adımları bulunuyor bunlara bakalım.
+2. `Figure` isminde soyut sınıfımızın tanımını görmekteyiz.
+3. Oturumdaki tanımlamaları `snippets` isminde bir dosya içerisinde kaydedilmesini istiyoruz. Bu adımda `/save` komutu bizim ihtiyacımızı karşılıyor. `snippets` dosyası bulunduğumuz çalışma dizinine kaydedilir.
+4. Oturumundan çıktıktan sonra bulunduğumuz dizini gözlemlediğimizde `snippets` dosyası bizi selamlıyor. Ayrıca 2 `java` uzantılı da dosyamız bulunuyor bu dizinde.
+5. Tekrar yeni bir JShell oturumu açtıktan sonra kaydedilen değerleri içe aktaralım. Bu işlemi gerçekleştirmek için `/open` komutunu kullanmamız gerekiyor. Bu komut ile birlikte bulunduğumuz dizinde olan `snippets` dosyasının ismini giriyoruz. 
+6. Listeleme işleminden sonra somut sınıfımız olan `Figure` eklenmiş olarak karşımıza geliyor.
+7. Şimdi gelin önceden JShell üzerinden editörde eklediğimiz sınıfları bu sefer dosya dizinimizden ekleyelim. `Circle.java` ve `Rectangle.java` dosyalarını içe aktaralım. `/open` komutu jshell adımlarını içeri aktarılmasına yardımcı olduğu gibi farklı Java tanımlamalarını da içeri aktarmamızı sağlıyor. `Circle` sınıfımız `Figure` sınıfını genişletmesinden dolayı oturumumuzda öncesinde `Figure` soyut sınıfın tanımlanmış olmasını bekliyoruz. Eğer `Figure` sınıfı olmadan `Circle` sınıfını içeri aktarırsak, `Figure` sınıfının tanımının yapılmadan `Circle` sınıfından nesne oluşturulamayacağını bize söyler.
+8. İçe aktarımdan sonra tüm tanımlı tipleri listelemek istediğimizde `Figure` ve `Circle` sınıflarını görmekteyiz.
+9. Ardından `Rectangle` sınıfını da oturumun içine aktaralım.
+10. Aktarımlardan sonra tüm adımların detaylı görünümüne bakalım.
+
+### {counter:index}. Otomatik tamamlama özelliği
+
+Varsayılan olarak JShell üzerinde otomatik tamamlama özelliği bulunmaktadır. Örneğin `Recta` yazıp <tab> yaptığımızda eğer birden fazla seçenek bulunmazsa bulunan tek seçenek ile otomatik olarak tamamlanır. Bu işlemleri komutlar için yapabiliriz, JShell üzerinde ulaşılabilen ve tanınan tüm ifadeler için gerçekleştirebiliyoruz. Aşağıdaki örneklemelere göz atabilirsiniz. `<tab>` tuşuna basarak bu adımları sizler de deneyebilirsiniz.
+
+----
+jshell> /re <tab>
+/reload    /reset
+
+jshell> /re
+
+jshell> Recta <tab>
+Rectangle
+
+jshell> Rectangle
+
+jshell> Stream <tab>
+Stream                     StreamCorruptedException   StreamSupport              StreamTokenizer
+
+jshell> Rectangle rec = new Rectangle(3,2)
+rec ==> Rectangle@1ce92674
+
+jshell> re <tab>
+rec
+
+jshell> rec
+
+jshell> rec. <tab>  <1>
+area()        equals(       getClass()    hashCode()    length        notify()      notifyAll()   toString()    wait(         width
+
+jshell> circ <tab> <2>
+jshell> circ
+
+jshell> Circ <tab> <3>
+Circle
+
+jshell> Circle
+----  
+1. Nokta `.` ekleyip nesnenin elemanlarına ulaşabiliyoruz. Örneğin parametre almayan metodların `()` şeklinde sonlandığının görebiliyoruz. Parametre alan metodlar `(` tek parantez açık olarak gözükürler. Ayrıca değişkenlere de direkt olaşabiliyoruz ve atanan değerlere erişebiliyoruz.
+2. `circ` yazıp <tab> uyguladığımızda bir değişlik olmuyor.
+3. `Circ` yazıp tekrar <tab> yaptığımızda tanımlı `Circle` sınıfına girdiğimiz kısım tamamlanmış olarak karşımıza geliyor. Büyük küçük harfe duyarlı bir tamamlama özelliği bulunmaktadır.
+
+### {counter:index}. Detay bilgi alma aşamaları
+
+JShell birden fazla `<tab>` aşamasıyla detaylı bilgi elde etme imkanı sunuyor. Bu aşamaları Java tanımlamalarına ve JShell sorgu yapılarına uygulayabiliyoruz. Aşamalarla istenen bilgilere nasıl ulaşıldığını inceleyelim:
+
+----
+jshell> /re       <1>
+/reload    /reset
+
+jshell> /re         <2>
+/reload    /reset
+
+<press tab again to see synopsis>
+
+jshell> /re     <3>
+/reload
+reset and replay relevant history -- current or previous (-restore)
+
+/reset
+reset jshell
+
+<press tab again to see full documentation>
+
+jshell> /re         <4>
+/reload
+Reset the jshell tool code and execution state then replay each valid snippet
+and any /drop commands in the order they were entered.
+
+/reload
+    Reset and replay the valid history since jshell was entered, or
+    a /reset, or /reload command was executed -- whichever is most
+    recent.
+
+/reload -restore
+    Reset and replay the valid history between the previous and most
+    recent time that jshell was entered, or a /reset, or /reload
+    command was executed. This can thus be used to restore a previous
+    jshell tool session.
+
+/reload [-restore] -quiet
+    With the '-quiet' argument the replay is not shown.  Errors will display.
+
+Each of the above accepts context options, see:
+
+    /help context
+
+For example:
+
+    /reload -add-modules com.greetings -restore
+
+<press tab to see next command>
+
+jshell> /re         <5>
+/reset
+Reset the jshell tool code and execution state:
+    * All entered code is lost.
+    * Start-up code is re-executed.
+    * The execution state is restarted.
+    Tool settings are maintained, as set with: /set ...
+Save any work before using this command.
+The /reset command accepts context options, see:
+
+    /help context
+
+jshell> /re
+----
+1. İlk olarak `/re` komutunu otomatik tamamlatmak isteyelim. `/re` ve <tab> yaptığımızda, JShell bize `/re` ön ekiyle başlayan 2 farklı komut olduğunu söyleyecek. 
+2. Tekrar aynı kalıba <tab> yaptığımızda öncekinden farklı olarak `<press tab again to see synopsis>` detayını görmüş olacaksınız. Durum ilginçleşiyor :) 
+3. Tekrar tab yaptığımızda bağlantılı komutların kısa açıklamasını görürüz. Bu adım sonrasında da `<press tab again to see full documentation>` açıklaması gözümüze çarpıyor. Tab kullanımına devam ediyoruz :)
+4. Tab komutuyla birlikte bağlantılı komutlardan ilki `reload` hakkında detaylı dokümantasyonu derleniyor. Detayın altındaki başka bir ifade daha olduğu görülüyor: `<press tab to see next command>`. `/re` ile ilgili bağlantılı komutumuz 2 tane vardı. 2. komuta dair detaylı bilgiye ulaşmak için gene bir <tab> daha yapmamız gerekiyor.
+5. Yaptığımız son bir <tab> hamlesiyle `/reset` komutunun bilgilerine de ulaşmış oluyoruz. Bol <tab> kullanarak JShell bizlere sınırlı ve kapsamlı bilgileri belirli aşamalarla sağladığını öğrenmiş olduk.
+
+Oluşturduğumuz `Rectangle` nesnesine ait bir dokümantasyonumuz bulunmuyor ama bu nesne değişkeni üzerinden <tab> kullanımıyla sınıfa ait dokümantasyon sorgulaması yapabilmekteyiz.
+
+----
+jshell> rec
+rec
+
+Signatures:
+rec:Rectangle
+
+<press tab again to see documentation>
+
+jshell> rec
+rec:Rectangle
+<no documentation found>
+
+jshell> rec
+----
+
+Örneğin bir başka dokümantasyon örneğimiz statik `Arrays.asList` metodu olsun. Farklı tab adımlarıyla aynı akışa sahip olabiliyoruz.
+
+----
+shell> Arrays.asList(    <tab>
+asList(
+
+jshell> Arrays.asList(   <tab>
+Signatures:
+List<T> Arrays.<T>asList(T... a)
+
+<press tab again to see documentation>
+
+jshell> Arrays.asList(          <tab>
+List<T> Arrays.<T>asList(T... a)
+Returns a fixed-size list backed by the specified array.(Changes to the returned list "write
+through" to the array.) This method acts as bridge between array-based and collection-based
+APIs, in combination with Collection#toArray . The returned list is serializable and implements
+RandomAccess .
+This method also provides a convenient way to create a fixed-size list initialized to contain
+several elements:
+     List<String> stooges = Arrays.asList("Larry", "Moe", "Curly");
+
+
+Type Parameters:
+T - the class of the objects in the array
+
+Parameters:
+a - the array by which the list will be backed
+
+Returns:
+a list view of the specified array
+
+<press tab again to see all possible completions; total possible completions: 551>
+---- 
+
+Slash `/` ve <tab> kombinasyonuyla kullanılabilir mevcut komutları görebiliyoruz:
+
+----
+jshell> /
+/!          /?          /drop       /edit       /env        /exit       /help       /history    /imports    /list       /methods    /open       /reload     /reset      /save       /set        /types
+/vars
+----
+
+#### {counter:index}. `/!` ve `/-` kullanımı
+
+`/!` komutu ile bir önceki çalıştırılan ifadeyi tekrar çalıştırmamız sağlanır.
+
+----
+jshell> Math.random()
+$8 ==> 0.1891103887126322
+
+jshell> /!
+Math.random()
+$9 ==> 0.5946399311904251
+----
+
+`/-{N}` komutunu kullanarak çalıştırılan en çok N. ifadenin değerine ulaşırız. Çalıştırılması istenen N. adımı `/list -all` dökümünden dikkatle bakarsak, hangi komutun en çok kullanıldığını ve bunun hangi ifade olacağını gözlemlemiş oluruz. 
+
+----
+$ jshell
+|  Welcome to JShell -- Version 9
+|  For an introduction type: /help intro
+
+jshell> int degree = 44
+degree ==> 44
+
+jshell> String city = "Izmir"
+city ==> "Izmir"
+
+jshell> city
+city ==> "Izmir"
+
+jshell> city
+city ==> "Izmir"
+
+jshell> city
+city ==> "Izmir"
+
+jshell> /list -a
+
+  s1 : import java.io.*;
+  s2 : import java.math.*;
+  s3 : import java.net.*;
+  s4 : import java.nio.file.*;
+  s5 : import java.util.*;
+  s6 : import java.util.concurrent.*;
+  s7 : import java.util.function.*;
+  s8 : import java.util.prefs.*;
+  s9 : import java.util.regex.*;
+ s10 : import java.util.stream.*;
+   1 : int degree = 44;
+   2 : String city = "Izmir";
+   3 : city
+   4 : city
+   5 : city
+
+jshell> /-1     <1>
+city
+city ==> "Izmir"
+----
+1. JShell oturumunu başlattıktan sonra `int` veri tipinde değeri 44 olan bir `degree` değişkeni oluşturduk. Sonrasında `String` tipinde değeri "İzmir" olan `city` değişkenini oluşturmuş olduk. Sonrasında `city` değişkenini 3 kez çalıştırma işlemini gerçekleştirdik. Tüm listeyi sorguladığımızda da bu eylemin ağaçtaki adımlarını görebiliyoruz. `/-1` komutunu çalıştırarak en çok kullanılan komutun yani `city` değişkeninin çalıştırılmasını tetiklemiş oluyoruz.
+
