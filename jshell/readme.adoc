@@ -494,7 +494,7 @@ jshell> /re
 2. Tekrar aynı kalıba <tab> yaptığımızda öncekinden farklı olarak `<press tab again to see synopsis>` detayını görmüş olacaksınız. Durum ilginçleşiyor :) 
 3. Tekrar tab yaptığımızda bağlantılı komutların kısa açıklamasını görürüz. Bu adım sonrasında da `<press tab again to see full documentation>` açıklaması gözümüze çarpıyor. Tab kullanımına devam ediyoruz :)
 4. Tab komutuyla birlikte bağlantılı komutlardan ilki `reload` hakkında detaylı dokümantasyonu derleniyor. Detayın altındaki başka bir ifade daha olduğu görülüyor: `<press tab to see next command>`. `/re` ile ilgili bağlantılı komutumuz 2 tane vardı. 2. komuta dair detaylı bilgiye ulaşmak için gene bir <tab> daha yapmamız gerekiyor.
-5. Yaptığımız son bir <tab> hamlesiyle `/reset` komutunun bilgilerine de ulaşmış oluyoruz. Bol <tab> kullanarak JShell bizlere sınırlı ve kapsamlı bilgileri belirli aşamalarla sağladığını öğrenmiş olduk.
+5. Yaptığımız son bir <tab> hamlesiyle `/reset` komutunun bilgilerine de ulaşmış oluyoruz. <tab> kullanarak JShell bizlere sınırlı ve kapsamlı bilgileri belirli aşamalarla sağladığını öğrenmiş olduk.
 
 Oluşturduğumuz `Rectangle` nesnesine ait bir dokümantasyonumuz bulunmuyor ama bu nesne değişkeni üzerinden <tab> kullanımıyla sınıfa ait dokümantasyon sorgulaması yapabilmekteyiz.
 
@@ -517,10 +517,10 @@ jshell> rec
 Örneğin bir başka dokümantasyon örneğimiz JDK 9 ile gelecek olan Collections çatısında yerini alacak yeni factory metodlardan `List.of` metodu olsun. Bu metodu kullarak sonrasınra değiştirilemeyecek bir liste elde edebiliyoruz. Farklı tab adımlarıyla  bu metoda ait tüm bilgilere sahip olabiliyoruz.
 
 ----
-jshell> List.o
+jshell> List.o   <tab>
 of(
 
-jshell> List.of(
+jshell> List.of(  <tab>
 Signatures:
 List<E> List<E>.<E>of()
 List<E> List<E>.<E>of(E e1)
@@ -537,7 +537,7 @@ List<E> List<E>.<E>of(E... elements)
 
 <press tab again to see documentation>
 
-jshell> List.of(
+jshell> List.of(  <tab>
 List<E> List<E>.<E>of()
 Returns an immutable list containing zero elements.See Immutable List Static Factory Methods
 for details.
@@ -550,7 +550,7 @@ an empty List
 
 <press tab to see next documentation>
 
-jshell> List.of(
+jshell> List.of(  <tab>
 List<E> List<E>.<E>of(E e1)
 Returns an immutable list containing one element.See Immutable List Static Factory Methods for
 details.
@@ -569,7 +569,7 @@ NullPointerException - if the element is null
 
 <press tab to see next documentation>
 
-jshell> List.of( <1>
+jshell> List.of( <tab> <1>  
 ----
 1. Toplamda `List.of` 12 overload metodu bulunmaktadır. `tab` adımlarını 10 kez daha tekrar ederek diğer overloaded metodların dokümantasyonlara ulaşabiliriz.
 
