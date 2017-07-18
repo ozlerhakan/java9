@@ -557,7 +557,7 @@ jshell> /
 /vars
 ----
 
-#### {counter:index}. `/!` ve `/-` kullanımı
+### {counter:index}. `/!` ve `/-` kullanımı
 
 `/!` komutu ile bir önceki çalıştırılan ifadeyi tekrar çalıştırmamız sağlanır.
 
