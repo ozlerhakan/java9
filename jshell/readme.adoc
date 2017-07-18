@@ -514,40 +514,64 @@ rec:Rectangle
 jshell> rec
 ----
 
-Örneğin bir başka dokümantasyon örneğimiz statik `Arrays.asList` metodu olsun. Farklı tab adımlarıyla aynı akışa sahip olabiliyoruz.
+Örneğin bir başka dokümantasyon örneğimiz JDK 9 ile gelecek olan Collections çatısında yerini alacak yeni factory metodlardan `List.of` metodu olsun. Bu metodu kullarak sonrasınra değiştirilemeyecek bir liste elde edebiliyoruz. Farklı tab adımlarıyla  bu metoda ait tüm bilgilere sahip olabiliyoruz.
 
 ----
-shell> Arrays.asList(    <tab>
-asList(
+jshell> List.o
+of(
 
-jshell> Arrays.asList(   <tab>
+jshell> List.of(
 Signatures:
-List<T> Arrays.<T>asList(T... a)
+List<E> List<E>.<E>of()
+List<E> List<E>.<E>of(E e1)
+List<E> List<E>.<E>of(E e1, E e2)
+List<E> List<E>.<E>of(E e1, E e2, E e3)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5, E e6)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5, E e6, E e7)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9)
+List<E> List<E>.<E>of(E e1, E e2, E e3, E e4, E e5, E e6, E e7, E e8, E e9, E e10)
+List<E> List<E>.<E>of(E... elements)
 
 <press tab again to see documentation>
 
-jshell> Arrays.asList(          <tab>
-List<T> Arrays.<T>asList(T... a)
-Returns a fixed-size list backed by the specified array.(Changes to the returned list "write
-through" to the array.) This method acts as bridge between array-based and collection-based
-APIs, in combination with Collection#toArray . The returned list is serializable and implements
-RandomAccess .
-This method also provides a convenient way to create a fixed-size list initialized to contain
-several elements:
-     List<String> stooges = Arrays.asList("Larry", "Moe", "Curly");
-
+jshell> List.of(
+List<E> List<E>.<E>of()
+Returns an immutable list containing zero elements.See Immutable List Static Factory Methods
+for details.
 
 Type Parameters:
-T - the class of the objects in the array
-
-Parameters:
-a - the array by which the list will be backed
+E - the List 's element type
 
 Returns:
-a list view of the specified array
+an empty List
 
-<press tab again to see all possible completions; total possible completions: 551>
----- 
+<press tab to see next documentation>
+
+jshell> List.of(
+List<E> List<E>.<E>of(E e1)
+Returns an immutable list containing one element.See Immutable List Static Factory Methods for
+details.
+
+Type Parameters:
+E - the List 's element type
+
+Parameters:
+e1 - the single element
+
+Returns:
+a List containing the specified element
+
+Thrown Exceptions:
+NullPointerException - if the element is null
+
+<press tab to see next documentation>
+
+jshell> List.of( <1>
+----
+1. Toplamda `List.of` 12 overload metodu bulunmaktadır. `tab` adımlarını 10 kez daha tekrar ederek diğer overloaded metodların dokümantasyonlara ulaşabiliriz.
 
 Slash `/` ve <tab> kombinasyonuyla kullanılabilir mevcut komutları görebiliyoruz:
 
