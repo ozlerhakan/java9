@@ -249,7 +249,7 @@ Editörün yardımıyla 2 yeni somut sınıf tanımlamış olduk. Bu somut sın�
 |  created class Rectangle
 ----
 
-`/types` komutunu ya da ön eklerini uygulayarak oturumda kullanilabilen mevcut tip (sınıf, arayüz ve enum) leri listeleyebiliriz:
+`/types` komutunu ya da ön eklerini uygulayarak oturumda kullanılabilen mevcut tip (sınıf, arayüz ve enum) leri listeleyebiliriz:
 
 ----
 jshell> /types
@@ -268,7 +268,7 @@ Spesific bir tip tanımını da arayabiliyoruz:
 
 ### {counter:index}. Referans tipte değişkenler ve nesneler oluşturma
 
-Tıpkı primitive değişkenler oluşturabildiğimiz gibi sınıf nesneleri oluşturabiliyoruz. Önceki örneklerimizde bu yaklaşımın yapılabildiğini String tipinde bazı değişkenler yaratarak görmüştük. Bir önceki görevimizde oluşturduğumuz `Circle` ve `Rectangle` sınıflarından değişkenler oluşturup, oluşturulan değişkenlerden nesneler yaratabiliriz. Kısaca bunlarla ilgili adımları yapaım:
+Tıpkı primitive değişkenler oluşturabildiğimiz gibi sınıf nesneleri oluşturabiliyoruz. Önceki örneklerimizde bu yaklaşımın yapılabildiğini `String` tipinde bazı değişkenler yaratarak görmüştük. Bir önceki görevimizde oluşturduğumuz `Circle` ve `Rectangle` sınıflarından değişkenler oluşturup, oluşturulan değişkenlerden nesneler yaratabiliriz. Kısaca bunlarla ilgili adımları yapalım:
 
 ----
 jshell> Circle circle <1>
@@ -283,9 +283,9 @@ circle ==> Circle@490ab905 <2>
 jshell> new Circle(4) <3>
 $4 ==> Circle@72d818d1
 ----
-1. Default null değerini alacak olan sonuna noktalı virgül koymadan oluşturduğumuz referans tip değişkenimiz
-2. `circle` değişkenimizi oluşturduktan sonra Circle sınıfından oluşturacağımız nesneyi bu değişkene referans verebiliriz. İşlem sonrasında nesnemizin string kimlik değerini görüyoruz.
-3. İstersek referans tanımlamasını JShell'e bırakarak yeni bir Circle nesne değişkeni elde edebiliriz.  
+1. Default `null` alacak olan sonuna noktalı virgül koymadan oluşturduğumuz referans tip değişkenimiz.
+2. `circle` değişkenimizi oluşturduktan sonra `Circle` sınıfından oluşturacağımız nesneyi bu değişkene referans verebiliriz. İşlem sonrasında nesnemizin String kimlik değerini görüyoruz.
+3. İstersek referans tanımlamasını JShell'e bırakarak yeni bir `Circle` nesne değişkeni elde edebiliriz.  
 
 Oluşturulan ilk immutable nesneyi çalıştırıp sonucumuza ulaşalım son olarak:
 
@@ -295,13 +295,13 @@ $16 ==> 12.566370614359172 <1>
 ----
 1. danss
 
-Unutmadan söylemek istiyorum, eğer biz `circle.area()` metodunu defalarca koşturusak, her dönen değer için JShell yönetimli bir değişken yaratılmış olur. Fakat metodu `print` komutunda çağırırsak bu dolaylı tanımlama yolu yapılmamış olur.
+Unutmadan söylemek istiyorum, eğer biz `circle.area()` metodunu defalarca koşturursak, her dönen değer için JShell yönetimli bir değişken yaratılmış olur. Fakat metodu `print` komutunda çağırırsak bu dolaylı tanımlama yolu yapılmamış olur.
 
 ----
 jshell> System.out.print(circle.area())
 12.566370614359172 <1>
 ----
-1. Görüldüğü gibi her hangi bir özel değişkene atama yapılmadan sadece sonuç değeri çıktılanmış oldu.
+1. Görüldüğü gibi herhangi bir özel değişkene atama yapılmadan sadece sonuç değeri çıktılanmış oldu.
 
 ### {counter:index}. Kullanılabilir kod parçalarını içe ve dışa aktarma özelliği
 
@@ -376,17 +376,17 @@ jshell> /types
 1. Öncelikle oturumumuzda hangi snippet adımları bulunuyor bunlara bakalım.
 2. `Figure` isminde soyut sınıfımızın tanımını görmekteyiz.
 3. Oturumdaki tanımlamaları `snippets` isminde bir dosya içerisinde kaydedilmesini istiyoruz. Bu adımda `/save` komutu bizim ihtiyacımızı karşılıyor. `snippets` dosyası bulunduğumuz çalışma dizinine kaydedilir.
-4. Oturumundan çıktıktan sonra bulunduğumuz dizini gözlemlediğimizde `snippets` dosyası bizi selamlıyor. Ayrıca 2 `java` uzantılı da dosyamız bulunuyor bu dizinde.
+4. Oturumundan çıktıktan sonra bulunduğumuz dizini gözlemlediğimizde `snippets` dosyası bizi selamlıyor. Ayrıca 2 `java` uzantılı dosyamız bulunuyor bu dizinde.
 5. Tekrar yeni bir JShell oturumu açtıktan sonra kaydedilen değerleri içe aktaralım. Bu işlemi gerçekleştirmek için `/open` komutunu kullanmamız gerekiyor. Bu komut ile birlikte bulunduğumuz dizinde olan `snippets` dosyasının ismini giriyoruz. 
 6. Listeleme işleminden sonra somut sınıfımız olan `Figure` eklenmiş olarak karşımıza geliyor.
-7. Şimdi gelin önceden JShell üzerinden editörde eklediğimiz sınıfları bu sefer dosya dizinimizden ekleyelim. `Circle.java` ve `Rectangle.java` dosyalarını içe aktaralım. `/open` komutu jshell adımlarını içeri aktarılmasına yardımcı olduğu gibi farklı Java tanımlamalarını da içeri aktarmamızı sağlıyor. `Circle` sınıfımız `Figure` sınıfını genişletmesinden dolayı oturumumuzda öncesinde `Figure` soyut sınıfın tanımlanmış olmasını bekliyoruz. Eğer `Figure` sınıfı olmadan `Circle` sınıfını içeri aktarırsak, `Figure` sınıfının tanımının yapılmadan `Circle` sınıfından nesne oluşturulamayacağını bize söyler.
+7. Şimdi gelin önceden JShell üzerinden editörde eklediğimiz sınıfları bu sefer dosya dizinimizden ekleyelim. `Circle.java` ve `Rectangle.java` dosyalarını içe aktaralım. `/open` komutu JShell adımlarını içeri aktarılmasına yardımcı olduğu gibi farklı Java tanımlamalarını da içeri aktarmamızı sağlıyor. `Circle` sınıfımız `Figure` sınıfını genişletmesinden dolayı oturumumuzda öncesinde `Figure` soyut sınıfın tanımlanmış olmasını bekliyoruz. Eğer `Figure` sınıfı olmadan `Circle` sınıfını içeri aktarırsak, `Figure` sınıfının tanımının yapılmadan `Circle` sınıfından nesne oluşturulamayacağını bize söyler.
 8. İçe aktarımdan sonra tüm tanımlı tipleri listelemek istediğimizde `Figure` ve `Circle` sınıflarını görmekteyiz.
 9. Ardından `Rectangle` sınıfını da oturumun içine aktaralım.
 10. Aktarımlardan sonra tüm adımların detaylı görünümüne bakalım.
 
 ### {counter:index}. Otomatik tamamlama özelliği
 
-Varsayılan olarak JShell üzerinde otomatik tamamlama özelliği bulunmaktadır. Örneğin `Recta` yazıp <tab> yaptığımızda eğer birden fazla seçenek bulunmazsa bulunan tek seçenek ile otomatik olarak tamamlanır. Bu işlemleri komutlar için yapabiliriz, JShell üzerinde ulaşılabilen ve tanınan tüm ifadeler için gerçekleştirebiliyoruz. Aşağıdaki örneklemelere göz atabilirsiniz. `<tab>` tuşuna basarak bu adımları sizler de deneyebilirsiniz.
+Varsayılan olarak JShell üzerinde otomatik tamamlama özelliği bulunmaktadır. Örneğin `Recta` yazıp `<tab>` yaptığımızda eğer birden fazla seçenek bulunmazsa, bulunan tek seçenek ile otomatik olarak tamamlanır. Bu işlemleri komutlar için yapabiliriz, JShell üzerinde ulaşılabilen ve tanınan tüm ifadeler için gerçekleştirebiliyoruz. `<tab>` kombinasyonu ile aşağıdaki adımları sizler de deneyebilirsiniz.
 
 ----
 jshell> /re <tab>
@@ -421,9 +421,9 @@ Circle
 
 jshell> Circle
 ----  
-1. Nokta `.` ekleyip nesnenin elemanlarına ulaşabiliyoruz. Örneğin parametre almayan metodların `()` şeklinde sonlandığının görebiliyoruz. Parametre alan metodlar `(` tek parantez açık olarak gözükürler. Ayrıca değişkenlere de direkt olaşabiliyoruz ve atanan değerlere erişebiliyoruz.
-2. `circ` yazıp <tab> uyguladığımızda bir değişlik olmuyor.
-3. `Circ` yazıp tekrar <tab> yaptığımızda tanımlı `Circle` sınıfına girdiğimiz kısım tamamlanmış olarak karşımıza geliyor. Büyük küçük harfe duyarlı bir tamamlama özelliği bulunmaktadır.
+1. Nokta `.` ekleyip nesnenin elemanlarına ulaşabiliyoruz. Örneğin parametre almayan metodların `()` şeklinde sonlandığının görebiliyoruz. Parametre alan metodlar `(` tek parantez açık olarak gözükürler. Ayrıca değişkenlere de direkt ulaşabiliyoruz ve atanan değerlere erişebiliyoruz.
+2. `circ` yazıp `<tab>` uyguladığımızda bir değişlik olmuyor.
+3. `Circ` yazıp tekrar `<tab>` yaptığımızda `Circle` sınıfı olarak tamamlanmış olarak karşımıza geliyor. Büyük küçük harfe duyarlı bir tamamlama özelliği bulunmaktadır.
 
 ### {counter:index}. Detay bilgi alma aşamaları
 
@@ -490,13 +490,13 @@ The /reset command accepts context options, see:
 
 jshell> /re
 ----
-1. İlk olarak `/re` komutunu otomatik tamamlatmak isteyelim. `/re` ve <tab> yaptığımızda, JShell bize `/re` ön ekiyle başlayan 2 farklı komut olduğunu söyleyecek. 
-2. Tekrar aynı kalıba <tab> yaptığımızda öncekinden farklı olarak `<press tab again to see synopsis>` detayını görmüş olacaksınız. Durum ilginçleşiyor :) 
+1. İlk olarak `/re` komutunu otomatik tamamlatmak isteyelim. `/re` ve `<tab>` yaptığımızda, JShell bize `/re` ön ekiyle başlayan 2 farklı komut olduğunu söyleyecek. 
+2. Tekrar aynı kalıba `<tab>` yaptığımızda öncekinden farklı olarak `<press tab again to see synopsis>` detayını görmüş olacaksınız. Durum ilginçleşiyor :) 
 3. Tekrar tab yaptığımızda bağlantılı komutların kısa açıklamasını görürüz. Bu adım sonrasında da `<press tab again to see full documentation>` açıklaması gözümüze çarpıyor. Tab kullanımına devam ediyoruz :)
-4. Tab komutuyla birlikte bağlantılı komutlardan ilki `reload` hakkında detaylı dokümantasyonu derleniyor. Detayın altındaki başka bir ifade daha olduğu görülüyor: `<press tab to see next command>`. `/re` ile ilgili bağlantılı komutumuz 2 tane vardı. 2. komuta dair detaylı bilgiye ulaşmak için gene bir <tab> daha yapmamız gerekiyor.
-5. Yaptığımız son bir <tab> hamlesiyle `/reset` komutunun bilgilerine de ulaşmış oluyoruz. <tab> kullanarak JShell bizlere sınırlı ve kapsamlı bilgileri belirli aşamalarla sağladığını öğrenmiş olduk.
+4. Tab komutuyla birlikte bağlantılı komutlardan ilki `reload` hakkında detaylı dokümantasyonu derleniyor. Detayın altındaki başka bir ifade daha olduğu görülüyor: `<press tab to see next command>`. `/re` ile ilgili bağlantılı komutumuz 2 tane vardı. 2. komuta dair detaylı bilgiye ulaşmak için gene bir `<tab>` daha yapmamız gerekiyor.
+5. Yaptığımız son bir `<tab>` hamlesiyle `/reset` komutunun bilgilerine de ulaşmış oluyoruz. `<tab>` kullanarak JShell bizlere sınırlı ve kapsamlı bilgileri belirli aşamalarla sağladığını görüyoruz.
 
-Oluşturduğumuz `Rectangle` nesnesine ait bir dokümantasyonumuz bulunmuyor ama bu nesne değişkeni üzerinden <tab> kullanımıyla sınıfa ait dokümantasyon sorgulaması yapabilmekteyiz.
+Oluşturduğumuz `Rectangle` nesnesine ait bir dokümantasyonumuz bulunmuyor ama bu nesne değişkeni üzerinden `<tab>` kullanımıyla sınıfa ait dokümantasyon sorgulaması yapabilmekteyiz.
 
 ----
 jshell> rec
@@ -514,7 +514,7 @@ rec:Rectangle
 jshell> rec
 ----
 
-Örneğin bir başka dokümantasyon örneğimiz JDK 9 ile gelecek olan Collections çatısında yerini alacak yeni factory metodlardan `List.of` metodu olsun. Bu metodu kullarak sonrasınra değiştirilemeyecek bir liste elde edebiliyoruz. Farklı tab adımlarıyla  bu metoda ait tüm bilgilere sahip olabiliyoruz.
+Örneğin bir başka dokümantasyon örneğimiz JDK 9 ile gelecek olan Collections çatısında yerini alacak yeni factory metodlardan `List.of` metodu olsun. Bu metodu kullanarak sonrasında değiştirilemeyecek bir liste elde edebiliyoruz. Farklı tab adımlarıyla bu metoda ait tüm bilgilere sahip olabiliyoruz.
 
 ----
 jshell> List.o   <tab>
@@ -571,9 +571,9 @@ NullPointerException - if the element is null
 
 jshell> List.of( <tab> <1>  
 ----
-1. Toplamda `List.of` 12 overload metodu bulunmaktadır. `tab` adımlarını 10 kez daha tekrar ederek diğer overloaded metodların dokümantasyonlara ulaşabiliriz.
+1. Toplamda `List.of` 12 overload metodu bulunmaktadır. `tab` adımlarını 10 kez daha tekrar ederek diğer overloaded metodların dokümantasyonlarına ulaşabiliriz.
 
-Slash `/` ve <tab> kombinasyonuyla kullanılabilir mevcut komutları görebiliyoruz:
+Slash `/` ve `<tab>` kombinasyonuyla kullanılabilir mevcut komutları görebiliyoruz:
 
 ----
 jshell> /
@@ -638,5 +638,220 @@ jshell> /-1     <1>
 city
 city ==> "Izmir"
 ----
-1. JShell oturumunu başlattıktan sonra `int` veri tipinde değeri 44 olan bir `degree` değişkeni oluşturduk. Sonrasında `String` tipinde değeri "İzmir" olan `city` değişkenini oluşturmuş olduk. Sonrasında `city` değişkenini 3 kez çalıştırma işlemini gerçekleştirdik. Tüm listeyi sorguladığımızda da bu eylemin ağaçtaki adımlarını görebiliyoruz. `/-1` komutunu çalıştırarak en çok kullanılan komutun yani `city` değişkeninin çalıştırılmasını tetiklemiş oluyoruz.
+1. JShell oturumunu başlattıktan sonra `int` veri tipinde değeri 44 olan bir `degree` değişkeni oluşturduk. Sonrasında `String` tipinde değeri "İzmir" olan `city` değişkenini oluşturmuş olduk. Sonrasında `city` değişkenini 3 kez çalıştırma işlemini gerçekleştirdik. Tüm listeyi sorguladığımızda da bu eylemi ağaç yapımızda görebiliyoruz. `/-1` komutunu çalıştırarak en çok kullanılan komutun yani `city` değişkeninin çalıştırılmasını tetiklemiş oluyoruz.
+
+### {counter:index}. Tanımlı olmayan Java ifadelerinin kullanımı
+
+Eğer hatırlarsanız tamsayı değerini toplayan basit bir `sum` isminde metod oluşturmuştuk. Gelin bu metodu yeni bir oturumda oluşturmadan kullanmaya çalışalım. Bu metod varmış gibi düşünerek ayrı bir metod ile 2 sayının ortalamasını almak isteyelim.
+
+----
+jshell> int mean(int firstNumber, int secondNumber) {
+   ...>    return sum(firstNumber, secondNumber) / 2;
+   ...> }
+|  created method mean(int,int), however, it cannot be invoked until method sum(int,int) is declared <1>
+
+>jshell> /m
+|    int mean(int,int)
+|       which cannot be invoked until method sum(int,int) is declared <2>
+
+jshell> mean(6, 12)
+|  attempted to call method mean(int,int) which cannot be invoked until method sum(int,int) is declared <2>
+----
+1. `mean` isminde metodumuzu komut satırı üzerinde oluşturuyoruz. Ayrıca bu metod içerisinde `sum` isminde 2 parametre alan bir metodu da belirtmiş olduk. `mean` metodunu oluşturduktan sonra çıkan açıklama dikkatinizi çekmiş olmalı. `sum` metodu tanımlanana kadar `mean` metodu çağırılamayacağı söylenmektedir. 
+2. Ayrıca oturumdaki metod'ları sorgulayalım. `mean` metodunda aynı açıklamanın yazıldığını göreceksiniz.
+3. Deneyerek de bu bildirimi alabiliriz.
+
+Madem öyle, o zaman `sum` metodunu hemen oluşturalım ve `mean` metodunu kullanıma açalım.
+
+----
+/edit mean  <1>
+|  created method sum(int,int) 
+
+jshell> /m  <2>
+|    int mean(int,int)
+|    int sum(int,int)
+
+jshell> mean(6, 12) <3>
+$7 ==> 9 
+----
+1. `mean` metodunu editlemeyi seçerek editör üzerinden `sum` metodunu oluşturalım ve onaylayalım.
+2. Tekrar metod ifadelerini sorguladığımızda `mean` metodunda yazılan açıklamanın kaybolduğunu ve `sum` metodunun listelendiğini görüyoruz.
+3. Yukarıda çalıştıramadığımız `mean(6, 12)` metodunu tekrar koşturmak istediğimizde sonuca ulaşmış oluyoruz.
+
+image::images/mean-sum.png[]
+
+### {counter:index}. JShell üzerindeki hata açıklamaları
+
+JShell üzerinde ifadelerin oluşturulma ve çalıştırılma aşamalarında karşılaşılan hata açıklamaları Java uygulamalarındaki hata açıklamalarıyla az bir farklılıkları olmaktadır. Örnekler üzerinden kısaca bunları somutlaştırabiliriz.
+
+----
+jshell> mean(6)  <1>
+|  Error:
+|  method mean in class  cannot be applied to given types;
+|    required: int,int
+|    found: int
+|    reason: actual and formal argument lists differ in length
+|  mean(6)
+|  ^--^
+
+jshell> List<String> fruits  = Arrays.asList("apple", "orange", "melon") <2>
+fruits ==> [apple, orange, melon]
+
+jshell>
+
+jshell> fruits.get(1)
+$9 ==> "orange"
+
+jshell> fruits.get(6)                 <3>
+|  java.lang.ArrayIndexOutOfBoundsException thrown: 6
+|        at Arrays$ArrayList.get (Arrays.java:4350)
+|        at (#10:1)
+
+jshell> /list -a
+  ...
+  ...
+   8 : List<String> fruits  = Arrays.asList("apple", "orange", "melon");
+   9 : fruits.get(1)
+  10 : fruits.get(6)
+----
+1. `mean` metodunu tek bir parametre vererek çalıştırdığımızda, belirtilen hata mesajında hatanın ne olduğu ve asıl istenenlerin neler olduğu açıklanmaktadır. Bu hatanın direkt `mean` metoduyla ilgili olduğunun bildirimini de `^--^` ifadesi ile göstermektedir.
+2. Diğer hatamızın sebebi meşhur `ArrayIndexOutOfBoundsException` hatası. Malum liste boyutları dışında olan bir değere ulaşmak istiyoruz ve bu hata karşımıza çıkıyor. Stack trace JShell üzerinde de gösterimi sağlanıyor. Bu hatadaki `(#10:1)` ifadesinin anlamı `fruits.get(6)` çalıştırdığımızda JShell yönetimli bir snippet id oluşuyor. Bu oluşan id `10` olmakta. `/list -a` sorgusuyla bu ifadenin açılımına ulaşabiliriz.
+
+
+### {counter:index}. Classpath (cp) yoluyla harici bağımlılıkların kullanımı
+
+JShell oturumlarında harici Java bağımlılıklarını kullanım imkanı sağlanmaktadır. Java API dışındaki farklı kütüphaneleri JShell ortamına entegre ederek istediğimiz yaklaşımları öğrenme ve test etme ortamları oluşturulabiliyor. JShell ortamına farklı bir içeriği aktarmak için `/env` komutunu kullanmamız gerekiyor. Bu komutla birlikte paket yolu, modül içeriği ya da `jar` dosyası belirterek aktarımı gerçekleştirebiliyoruz. Aktarım işleminden sonra kullanılacak Java ifadelerini `/import` komutuyla ekleyip oturum genelinde bu tiplere erişilebilir hale getirilmesi gerekiyor. Bu anlatılanları somutlaştırmak amacıyla JShell oturumumuz içerisinde `localhost:27017` üzerinde dinlemekte olan `mongod` sunucusuna bağlanıp sorgulama işlemi yapalım. Bu adımları gerçekleştirmek için 3.4.2 versiyonundaki MongoDB Java sürücüsünü JShell ortamımıza entegre etmemiz gerekiyor. Gelin adım adım bu işlemleri yerine getirelim:  
+
+----
+$ ls
+mongo-java-driver-3.4.2.jar
+$ jshell
+...
+...
+jshell> /env -class-path mongo-java-driver-3.4.2.jar <1>
+|  Setting new options and restoring state.
+
+jshell> /env                <2>
+|     --class-path mongo-java-driver-3.4.2.jar
+
+jshell> import com.mongodb.MongoClient <3>
+
+jshell> /list -a      <4>
+
+  s1 : import java.io.*;
+  s2 : import java.math.*;
+  s3 : import java.net.*;
+  s4 : import java.nio.file.*;
+  s5 : import java.util.*;
+  s6 : import java.util.concurrent.*;
+  s7 : import java.util.function.*;
+  s8 : import java.util.prefs.*;
+  s9 : import java.util.regex.*;
+ s10 : import java.util.stream.*;
+   1 : import com.mongodb.MongoClient;
+
+jshell> /list
+
+   1 : import com.mongodb.MongoClient;
+
+shell> MongoClient mongoClient = new MongoClient()   <5>
+Jul 15, 2017 12:08:44 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Cluster created with settings {hosts=[127.0.0.1:27017], mode=SINGLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+Jul 15, 2017 12:08:44 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:1, serverValue:137}] to 127.0.0.1:27017
+Jul 15, 2017 12:08:44 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 4, 4]}, minWireVersion=0, maxWireVersion=5, maxDocumentSize=16777216, roundTripTimeNanos=1639129}
+mongoClient ==> Mongo{options=MongoClientOptions{description='nul ... ize=0, sendBufferSize=0}}}
+
+jshell> /list
+
+   1 : import com.mongodb.MongoClient;
+   2 : MongoClient mongoClient = new MongoClient();
+
+jshell> import com.mongodb.client.MongoDatabase  <6>
+
+jshell> MongoDatabase testDatabase = mongoClient.getDatabase("test")  <7>
+testDatabase ==> com.mongodb.MongoDatabaseImpl@62656be4
+
+jshell> Jul 15, 2017 12:10:35 AM com.mongodb.diagnostics.logging.JULLogger log  <8>
+INFO: Exception in monitor thread while connecting to server 127.0.0.1:27017
+com.mongodb.MongoSocketReadException: Prematurely reached end of stream
+  at com.mongodb.connection.SocketStream.read(SocketStream.java:88)
+  at com.mongodb.connection.InternalStreamConnection.receiveResponseBuffers(InternalStreamConnection.java:494)
+  at com.mongodb.connection.InternalStreamConnection.receiveMessage(InternalStreamConnection.java:224)
+  at com.mongodb.connection.CommandHelper.receiveReply(CommandHelper.java:134)
+  at com.mongodb.connection.CommandHelper.receiveCommandResult(CommandHelper.java:121)
+  at com.mongodb.connection.CommandHelper.executeCommand(CommandHelper.java:32)
+  at com.mongodb.connection.InternalStreamConnectionInitializer.initializeConnectionDescription(InternalStreamConnectionInitializer.java:85)
+  at com.mongodb.connection.InternalStreamConnectionInitializer.initialize(InternalStreamConnectionInitializer.java:45)
+  at com.mongodb.connection.InternalStreamConnection.open(InternalStreamConnection.java:116)
+  at com.mongodb.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:127)
+  at java.base/java.lang.Thread.run(Thread.java:844)
+
+Jul 15, 2017 12:10:45 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Exception in monitor thread while connecting to server 127.0.0.1:27017
+com.mongodb.MongoSocketOpenException: Exception opening socket
+  at com.mongodb.connection.SocketStream.open(SocketStream.java:63)
+  at com.mongodb.connection.InternalStreamConnection.open(InternalStreamConnection.java:115)
+  at com.mongodb.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:113)
+  at java.base/java.lang.Thread.run(Thread.java:844)
+Caused by: java.net.ConnectException: Connection refused (Connection refused)
+  at java.base/java.net.PlainSocketImpl.socketConnect(Native Method)
+  at java.base/java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:400)
+  at java.base/java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:243)
+  at java.base/java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:225)
+  at java.base/java.net.SocksSocketImpl.connect(SocksSocketImpl.java:402)
+  at java.base/java.net.Socket.connect(Socket.java:591)
+  at com.mongodb.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:57)
+  at com.mongodb.connection.SocketStream.open(SocketStream.java:58)
+  ... 3 more
+
+Jul 15, 2017 12:11:05 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:5, serverValue:1}] to 127.0.0.1:27017
+Jul 15, 2017 12:11:05 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Monitor thread successfully connected to server with description ServerDescription{address=127.0.0.1:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 4, 4]}, minWireVersion=0, maxWireVersion=5, maxDocumentSize=16777216, roundTripTimeNanos=1381816} <9>
+
+----
+1. Bulunduğumuz dizini sorguladığımızda `mongo-java-driver-3.4.2.jar` dosyası bulunduğunu görüyoruz. Bu dizindeyken JShell oturumumuza bağlanıyoruz ve `/env` komutunu kullanarak bu bağımlılığı oturumumuza entegre ediyoruz. Entegre işleminde `jar` üzerinden bağımlılığı içeriye ekleyeceğimiz için `-class-path` seçeneğini kullanmamız gerekiyor.
+2. Bağımlılığın eklenmesinden sonra içeriği görmek adına `/env` sorgusunu çalıştırabiliriz. Son eklenen içeriğimiz listelenmiş olarak geliyor.
+3. Öncelikle bir `client` oluşturmamız gerekiyor, `mongod` bağlantısını sağlamamız için. Bu işlemi gerçekleştirmede kullanılan `MongoClient` sınıfı ortamda erişilebilir olması gerekiyor. `/import` komutuyla bu sınıfı oturumda kullanılabilir seviyeye getiriyoruz.
+4. Tüm erişilebilir ifadeleri sorguladığımızda Java paketleri dışında `com.mongodb.MongoClient` sınıfının da eklenmiş olduğunun garantisini alıyoruz.
+5. Sıra geldi varsayılan ayarlarıyla (`127.0.0.1:27017`) `MongoClient` örneği oluşturmaya. Bu nesnenin oluşturulmasıyla `mongod` suncusuna bağlanılmış ve dinlemeye geçmiş oluyoruz.
+6. Veritabanına erişim sağlamak adına `com.mongodb.client.MongoDatabase` sınıfını kullanıcaz, o yüzden bu sınıfı da oturumda erişilebilir yapmamız gerekiyor. 
+7. `client` üzerinden `test` veritabanına bağlanabileceğimiz bir `MongoDatabase` nesnemiz hazır hale getiriliyor.
+8. `client` arka planda ayakta olduğundan bahsetmiştim, `mongod` sunucusunu bir süre ulaşılamaz hale getirirsek JShell tarafında bir değişiklik olacak mı diye baktığımızda, `client` `mongod` sunucusuna aralıklarla istek attığını ve bağlantının kabul edilmediğinin bilgisi JShell üzerinde otomatik olarak gösterilir.
+9. `mongod` sunucusunu tekrar ayağa kaldırdığımızda bağlantının da JShell tarafında sağlandığının bilgisi iletilir.  
+
+`mongod` sunucumuz ayakta ve `tests` veritabanına bağlantımız yapılmış durumda artık. Şimdi bir sonraki adım olarak `tests` veritabanındaki bir koleksiyondan bir dokümana erişmek kalıyor.
+
+----
+jshell> import org.bson.Document <1> 
+
+jshell> import com.mongodb.client.MongoCollection <2>
+
+jshell> MongoCollection<Document> users = testDatabase.getCollection("users")
+users ==> com.mongodb.MongoCollectionImpl@747f281
+
+jshell> users.find <3>
+find(                findOneAndDelete(    findOneAndReplace(   findOneAndUpdate(
+
+jshell> users.find().first().toJson() <4>
+Jul 15, 2017 12:20:24 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Opened connection [connectionId{localValue:8, serverValue:3}] to 127.0.0.1:27017
+$8 ==> "{ \"_id\" : 1.0, \"user\" : { \"name\" : \"Quincy\" }, \"exam\" : 54.0, \"quizzes\" : [85.0, 45.0] }"
+
+jshell> mongoClient.close()  <5>
+Jul 15, 2017 12:37:32 AM com.mongodb.diagnostics.logging.JULLogger log
+INFO: Closed connection [connectionId{localValue:8, serverValue:3}] to 127.0.0.1:27017 because the pool has been closed.
+
+jshell> System.out.print($8)    <6>
+{ "_id" : 1.0, "user" : { "name" : "Quincy" }, "exam" : 54.0, "quizzes" : [85.0, 45.0] }
+----
+1. İstenen koleksiyona ulaşmadan önce `Document` sınıfını da erişilebilir yapmamız gerekiyor. 
+2. Sonrasında `MongoCollection` sınıfını da ulaşabilir yapmalıyız.
+3. `users` koleksiyonuna ulaşmış bulunuyoruz.
+4. JShell otomatik tamamlama özelliğinden de yararlanarak `find` ile başlayan metodları `tab` yardımıyla listenmesini istiyoruz.
+5. `users` koleksiyonundaki ilk dokümanı ulaşılıp bunun JSON formatında döndürülmesini sağlıyoruz. 
+6. `mongod` ve `client` arasındaki bağlantıyı sonlandırma vakti.
+7. JShell yönetimli değişkene atanan bu dokümanı tekrar çıktılayalım.
 
